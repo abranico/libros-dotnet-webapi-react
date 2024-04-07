@@ -1,0 +1,6 @@
+@LibrosAPI_HostAddress = http://localhost:5037
+
+GET {{LibrosAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
