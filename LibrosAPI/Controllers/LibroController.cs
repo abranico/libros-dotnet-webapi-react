@@ -46,4 +46,32 @@ public class LibroController : ControllerBase
             nuevoLibro
         );
     }
+
+    [HttpPut("{libroId}")]
+    public ActionResult<Libro> PutLibro(int libroId, LibroInsert libroInsert)
+    {
+        var libro = LibrosDataStore.Current.Libros.FirstOrDefault(x => x.Id == libroId);
+
+        if (libro == null) return NotFound(Mensajes.Libro.NotFound);
+
+        libro.Titulo = libroInsert.Titulo;
+        libro.Autor = libroInsert.Autor;
+        libro.Genero = libroInsert.Genero;
+        libro.FechaPublicacion = libroInsert.FechaPublicacion;
+
+        return NoContent();
+    }
+
+    [HttpDelete("{libroId}")]
+    public ActionResult<Libro> DeleteLibro(int libroId)
+    {
+        var libro = LibrosDataStore.Current.Libros.FirstOrDefault(x => x.Id == libroId);
+
+        if (libro == null) return NotFound(Mensajes.Libro.NotFound);
+
+        LibrosDataStore.Current.Libros.Remove(libro);
+
+        return NoContent();
+
+    }
 }
